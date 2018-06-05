@@ -122,11 +122,15 @@ node *deleteNode(int elem, node *&Tree) {
     } else if (elem > Tree->value) {
       Tree->right = deleteNode(elem, Tree->right);
     } else {
-      if (Tree->left == nullptr && Tree->right == nullptr) {
+      bool isTreeLeft = false;
+			bool isTreeRight = false;
+			if(Tree->left)  isTreeLeft = true;
+			if (Tree->right) isTreeRight = true;
+				if (!isTreeLeft && !isTreeRight) {
         delete Tree;
         Tree = nullptr;
         return Tree;
-      } else if (Tree->right != nullptr) {
+      } else if (isTreeRight) {
         node *tmp = Tree->right;
         node *ttmp = Tree->right;
         while (tmp->left) {
@@ -162,29 +166,29 @@ node *deleteNode(int elem, node *&Tree) {
 };
 
 node *BeforefindNode(node *Tree, int key) {
-  if (Tree != nullptr) {
-    if (Tree->left->value > key) {
-      BeforefindNode(Tree->left, key);
+  if (Tree == nullptr) return nullptr;
+  else{
+     if (Tree->left->value == key) {
+     return Tree;
     } else if (Tree->right->value < key) {
       BeforefindNode(Tree->right, key);
     } else {
-      return Tree;
+       BeforefindNode(Tree->left, key);
     }
-  } else
-    return nullptr;
+  } 
 }
 
 node *findNode(node *Tree, int key) {
-  if (Tree != nullptr) {
-    if (Tree->value > key) {
-      findNode(Tree->left, key);
+  if (Tree == nullptr) return nullptr;
+  else{
+     if (Tree->value == key) {
+       return Tree;
     } else if (Tree->value < key) {
-      findNode(Tree->right, key);
+       findNode(Tree->right, key);
     } else {
-      return Tree;
+       findNode(Tree->left, key);
     }
-  } else
-    return nullptr;
+  } 
 }
 
 void copy(node *&tree, node *&tree2) {
