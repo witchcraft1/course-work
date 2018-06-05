@@ -71,14 +71,15 @@ node *right_big_rotation(node *&alpha) {
   return gamma;
 }
 
+const int depth = 2;
 node *balance(node *&Node) {
   changeHeight(Node);
-  if (difference_height_right_left_child(Node) == 2) {
+  if (difference_height_right_left_child(Node) == depth) {
     if (difference_height_right_left_child(Node->right) < 0)
       return left_big_rotation(Node);
     return left_small_rotation(Node);
   }
-  if (difference_height_right_left_child(Node) == -2) {
+  if (difference_height_right_left_child(Node) == -depth) {
     if (difference_height_right_left_child(Node->left) > 0)
       return right_big_rotation(Node);
     return right_small_rotation(Node);
